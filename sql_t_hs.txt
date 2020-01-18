@@ -1,0 +1,8 @@
+select extract(month from s.sell_date) as months,
+sum(case when extract(year from s.sell_date) = 2017 then selling_price*quantity else 0 end) as totSales2017,
+sum(case when extract(year from s.sell_date) = 2018 then selling_price*quantity else 0 end) as totSales2018,
+sum(case when extract(year from s.sell_date) = 2019 then selling_price*quantity else 0 end) as totSales2019
+from sales s
+join inventories as i on s.inv_id=i.inv_id
+group by extract(month from s.sell_date)
+order BY extract(month from s.sell_date);
